@@ -1,6 +1,6 @@
 // app/controller/question.ts
 import { Controller } from 'egg';
-import { questions } from './data/data';
+import { questions } from './data/question-data';
 
 export default class QuestionController extends Controller {
     async index() {

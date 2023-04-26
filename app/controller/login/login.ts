@@ -1,5 +1,5 @@
 import { Controller } from 'egg';
-import { IUserInfo } from './types/login';
+import { IUserInfo } from './types/login-type';
 
 export default class LoginController extends Controller {
     async getUser() {

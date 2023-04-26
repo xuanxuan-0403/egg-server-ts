@@ -1,4 +1,4 @@
-import { IDataType } from '../types/type';
+import { IDataType } from '../types/question-type';
 
 export const questions: IDataType[] = [
     {
