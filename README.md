@@ -33,3 +33,9 @@
 2. `types/` 文件命名: `目录名 + -type.ts` (login-type.ts)
 
 3. `data/` 文件命名: `目录名 + -data.ts` (login-data.ts)
+
+# 使用 `egg-ts-helper` 生成 `.d.ts`
+
+> `npx ets`
+
+> `https://github.com/eggjs/egg-ts-helper`

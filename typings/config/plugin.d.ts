@@ -22,6 +22,9 @@ import '@eggjs/tegg-schedule-plugin';
 import '@eggjs/tegg-eventbus-plugin';
 import '@eggjs/tegg-aop-plugin';
 import 'egg-tracer';
+import 'egg-mysql';
+import 'egg-jwt';
+import 'egg-cors';
 import { EggPluginItem } from 'egg';
 declare module 'egg' {
   interface EggPlugin {
@@ -44,5 +47,8 @@ declare module 'egg' {
     eventbusModule?: EggPluginItem;
     aopModule?: EggPluginItem;
     tracer?: EggPluginItem;
+    mysql?: EggPluginItem;
+    jwt?: EggPluginItem;
+    cors?: EggPluginItem;
   }
 }
