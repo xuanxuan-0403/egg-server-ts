@@ -1,10 +1,13 @@
 {
-  "extends": "@eggjs/tsconfig",
-  "compilerOptions": {
-    "declaration": false,
-    "paths": {
-      "@/module/*": ["app/module/*"]
-    },
-    "baseUrl": "."
-  }
+    "extends": "@eggjs/tsconfig",
+    "compilerOptions": {
+        "declaration": false,
+        "paths": {
+            "@/module/*": ["app/module/*"],
+            "utils/*": ["utils/*"]
+        },
+        "baseUrl": ".",
+        "importHelpers": true,
+        "strict": true
+    }
 }
