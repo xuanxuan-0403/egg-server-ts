@@ -27,6 +27,7 @@
         "@eggjs/tegg-eventbus-plugin": "^3.5.2",
         "@eggjs/tegg-plugin": "^3.5.2",
         "@eggjs/tegg-schedule-plugin": "^3.5.2",
+        "compressing": "^1.9.0",
         "egg": "^3.15.0",
         "egg-cors": "^2.2.3",
         "egg-jwt": "^3.1.7",

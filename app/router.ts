@@ -12,4 +12,7 @@ export default (app: Application) => {
     // * 登录
     router.post('/api/login/getUser', controller.login.login.getUser);
     router.post('/api/login/addUser', controller.login.login.addUser);
+
+    // * 文件上传功能
+    router.post('/upload', controller.upload.upload.index);
 };
