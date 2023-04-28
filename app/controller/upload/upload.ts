@@ -26,6 +26,8 @@ export default class UploadController extends Controller {
                     xrCompressing.uncompress(name, dist, resultPath);
                     // 查询解压后文件夹路径
                     const filepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
+                    // 把路径注入到数据库
+                    this.service.upload.upload.addPath(filepath);
                 }
             });
         });
