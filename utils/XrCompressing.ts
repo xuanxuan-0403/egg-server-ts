@@ -17,19 +17,6 @@ class XrCompressing {
             extname === RarExtName.RAR ||
             extname === RarExtName.SEVENz
         ) {
-            console.log('开始解压', extname);
-
-            // compressing.zip
-            //     .uncompress(filepath, targetpath, {
-            //         // 在解压时设置一下编码
-            //         zipFileNameEncoding: 'GBK',
-            //     })
-            //     .then((res) => {
-            //         console.log('解压成功: ', res);
-            //     })
-            //     .catch((err) => {
-            //         console.log('解压失败: ', err);
-            //     });
             const res = await compressing.zip.uncompress(filepath, targetpath, {
                 zipFileNameEncoding: 'GBK',
             });

@@ -1,14 +1,14 @@
 import { Controller } from 'egg';
 import fs from 'fs';
-// import path from 'path';
 import { xrCompressing } from 'utils/XrCompressing';
-// import { readDir } from 'utils/readDir';
 import { v4 as uuidv4 } from 'uuid';
 import { alternatePath } from 'utils/alternatePath';
+import { readDir } from 'utils/readDir';
 
 export default class UploadController extends Controller {
     async index() {
-        const file = this.ctx.request.files[0];
+        const { ctx } = this;
+        const file = ctx.request.files[0];
         const name = file.filename;
         const uuid = uuidv4();
         const filename = `${uuid}_${name}`;
@@ -22,12 +22,17 @@ export default class UploadController extends Controller {
                 } else {
                     resolve(true);
                     console.log('success', name);
-                    // 解压
+                    // * 解压
                     xrCompressing.uncompress(name, dist, resultPath);
-                    // 查询解压后文件夹路径
+                    // * 查询解压后文件夹路径
                     const filepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
-                    // 把路径注入到数据库
-                    this.service.upload.upload.addPath(filepath);
+                    console.log(filepath);
+                    // * 把路径注入到数据库
+                    // service.upload.upload.addPath(filepath);
+                    // * 查询解压后 .html 文件
+                    readDir(
+                        `E:\\I_Project\\egg-server-ts\\app\\public\\webgl\\298f0204-d5f4-427b-b4d0-d3b2ab580824`,
+                    );
                 }
             });
         });

@@ -32,7 +32,8 @@ const plugin: EggPlugin = {
     // * 自己的插件
     // mysql
     mysql: {
-        enable: true,
+        // ! mysql 已被关闭
+        enable: false,
         package: 'egg-mysql',
     },
     // 生成登录后token

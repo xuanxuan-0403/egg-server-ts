@@ -7,11 +7,11 @@ export default (app: Application) => {
 
     // * get
     router.get('/question', controller.question.question.index);
-    router.get('/dangjian/exhibits', controller.dangjian.dangjian.exhibits); // 党建展厅
+    // router.get('/dangjian/exhibits', controller.dangjian.dangjian.exhibits); // 党建展厅
 
     // * 登录
-    router.post('/api/login/getUser', controller.login.login.getUser);
-    router.post('/api/login/addUser', controller.login.login.addUser);
+    // router.post('/api/login/getUser', controller.login.login.getUser);
+    // router.post('/api/login/addUser', controller.login.login.addUser);
 
     // * 文件上传功能
     router.post('/upload', controller.upload.upload.index);
