@@ -33,7 +33,8 @@
         "egg-jwt": "^3.1.7",
         "egg-mysql": "^4.0.0",
         "egg-scripts": "^2.17.0",
-        "egg-tracer": "^2.0.0"
+        "egg-tracer": "^2.0.0",
+        "uuid": "^9.0.0"
     },
     "devDependencies": {
         "@eggjs/tsconfig": "1",

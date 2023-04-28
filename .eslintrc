@@ -2,6 +2,9 @@
     "root": true,
     "extends": "eslint-config-egg/typescript",
     "rules": {
-        "@typescript-eslint/indent": "off"
+        "@typescript-eslint/indent": "off",
+        "array-bracket-spacing": "off",
+        "array-callback-return": "off",
+        "@typescript-eslint/no-var-requires": "off"
     }
 }

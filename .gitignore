@@ -23,7 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 # egg
-app/controller/public/upload/*
-app/controller/public/lib/*
+app/controller/public/*
 run/*
 logs/*
