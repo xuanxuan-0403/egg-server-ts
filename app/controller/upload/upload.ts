@@ -30,9 +30,7 @@ export default class UploadController extends Controller {
                     // * 把路径注入到数据库
                     // service.upload.upload.addPath(filepath);
                     // * 查询解压后 .html 文件
-                    readDir(
-                        `E:\\I_Project\\egg-server-ts\\app\\public\\webgl\\298f0204-d5f4-427b-b4d0-d3b2ab580824`,
-                    );
+                    readDir(`E:\\I_Project\\egg-server-ts\\app\\public\\webgl`);
                 }
             });
         });

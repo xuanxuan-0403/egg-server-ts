@@ -3,7 +3,7 @@ import { IUserInfo } from './types/login-type';
 
 export default class LoginController extends Controller {
     async getUser() {
-        const { ctx, app } = this;
+        const { ctx, app, service } = this;
         const user: IUserInfo = {
             username: ctx.request.body.username,
             password: ctx.request.body.password,
@@ -17,18 +17,21 @@ export default class LoginController extends Controller {
             for (let i = 0; i < sqlUser.length; i++) {
                 if (sqlUser[i].username !== user.username) continue;
                 resultUser = true;
-                const token = this.app.jwt.sign(
-                    {
-                        name: sqlUser[i].name,
-                        expiresIn: 60 * 60 * 24,
-                    },
-                    app.config.jwt.secret,
-                );
+                // const token = this.app.jwt.sign(
+                //     {
+                //         name: sqlUser[i].name,
+                //         expiresIn: 60 * 60 * 24,
+                //     },
+                //     app.config.jwt.secret,
+                // );
+                const userid = sqlUser[i].id;
+                const token = service.user.user.returnToken(sqlUser[i].name);
 
                 ctx.body = {
                     status: 200,
                     message: '登录成功',
                     token,
+                    userid,
                 };
             }
             if (!resultUser) {
