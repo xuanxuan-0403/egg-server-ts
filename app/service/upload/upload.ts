@@ -4,7 +4,7 @@ import fs from 'fs';
 import { getExtName } from 'utils/getExtName';
 
 export default class UploadService extends Service {
-    async addPath(filepath: string) {
+    async addPath(filepath: string, userid: number, desc: string) {
         const { app } = this;
         let htmlpath = '';
         let createTime = dayjs().format('YYYY-MM-DD HH:mm');
@@ -12,11 +12,13 @@ export default class UploadService extends Service {
         files.forEach((file) => {
             const extName = getExtName(file);
             if (extName !== '.html') return;
-            htmlpath = `${filepath}\\${file}`;
+            htmlpath = `${filepath}/${file}`;
             app.mysql.insert('uploadfile', {
                 htmlpath,
                 filepath,
                 createTime,
+                userid,
+                desc,
             });
         });
     }

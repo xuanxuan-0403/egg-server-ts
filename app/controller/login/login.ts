@@ -3,7 +3,7 @@ import { IUserInfo } from './types/login-type';
 
 export default class LoginController extends Controller {
     async getUser() {
-        const { ctx, app, service } = this;
+        const { ctx, app } = this;
         const user: IUserInfo = {
             username: ctx.request.body.username,
             password: ctx.request.body.password,
@@ -18,7 +18,7 @@ export default class LoginController extends Controller {
                 if (sqlUser[i].username !== user.username) continue;
                 resultUser = true;
                 const userid = sqlUser[i].id;
-                const token = service.user.user.returnToken(sqlUser[i].name);
+                const token = app.jwt.sign({ name: sqlUser[i].username }, app.config.jwt.secret);
 
                 ctx.body = {
                     status: 200,

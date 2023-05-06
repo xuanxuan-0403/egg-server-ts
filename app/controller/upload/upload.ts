@@ -7,6 +7,7 @@ import { alternatePath } from 'utils/alternatePath';
 export default class UploadController extends Controller {
     async index() {
         const { ctx, service } = this;
+        const userData = ctx.request.body;
         const file = ctx.request.files[0];
         const name = file.filename;
         const uuid = uuidv4();
@@ -24,10 +25,10 @@ export default class UploadController extends Controller {
                     // * 解压
                     xrCompressing.uncompress(name, dist, resultPath);
                     // * 查询解压后文件夹路径
-                    const filepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
+                    const filepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
                     // * 查询解压后 .html 文件,把路径注入到数据库
                     setTimeout(() => {
-                        service.upload.upload.addPath(filepath);
+                        service.upload.upload.addPath(filepath, userData.userid, userData.desc);
                     }, 1000);
                 }
             });

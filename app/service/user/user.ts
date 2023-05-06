@@ -25,13 +25,7 @@ export default class UserService extends Service {
     }
     async returnToken(name: any) {
         const { app } = this;
-        const token = this.app.jwt.sign(
-            {
-                name,
-                expiresIn: 60 * 60 * 24,
-            },
-            app.config.jwt.secret,
-        );
+        const token = app.jwt.sign({ name }, app.config.jwt.secret);
         return token;
     }
 }
