@@ -28,7 +28,7 @@ export default class UploadController extends Controller {
                     const filepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
                     // * 查询解压后 .html 文件,把路径注入到数据库
                     setTimeout(() => {
-                        service.upload.upload.addPath(filepath, userData.userid, userData.desc);
+                        service.upload.upload.addPath(filepath, userData.userId, userData.desc);
                     }, 1000);
                 }
             });
