@@ -3,11 +3,10 @@ import fs from 'fs';
 import { xrCompressing } from 'utils/XrCompressing';
 import { v4 as uuidv4 } from 'uuid';
 import { alternatePath } from 'utils/alternatePath';
-import { readDir } from 'utils/readDir';
 
 export default class UploadController extends Controller {
     async index() {
-        const { ctx } = this;
+        const { ctx, service } = this;
         const file = ctx.request.files[0];
         const name = file.filename;
         const uuid = uuidv4();
@@ -26,11 +25,10 @@ export default class UploadController extends Controller {
                     xrCompressing.uncompress(name, dist, resultPath);
                     // * 查询解压后文件夹路径
                     const filepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
-                    console.log(filepath);
-                    // * 把路径注入到数据库
-                    // service.upload.upload.addPath(filepath);
-                    // * 查询解压后 .html 文件
-                    readDir(`E:\\I_Project\\egg-server-ts\\app\\public\\webgl`);
+                    // * 查询解压后 .html 文件,把路径注入到数据库
+                    setTimeout(() => {
+                        service.upload.upload.addPath(filepath);
+                    }, 1000);
                 }
             });
         });

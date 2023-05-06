@@ -17,13 +17,6 @@ export default class LoginController extends Controller {
             for (let i = 0; i < sqlUser.length; i++) {
                 if (sqlUser[i].username !== user.username) continue;
                 resultUser = true;
-                // const token = this.app.jwt.sign(
-                //     {
-                //         name: sqlUser[i].name,
-                //         expiresIn: 60 * 60 * 24,
-                //     },
-                //     app.config.jwt.secret,
-                // );
                 const userid = sqlUser[i].id;
                 const token = service.user.user.returnToken(sqlUser[i].name);
 
