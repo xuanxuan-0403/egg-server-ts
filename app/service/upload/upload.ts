@@ -1,25 +1,30 @@
 import { Service } from 'egg';
 import dayjs from 'dayjs';
 import fs from 'fs';
-import { getExtName } from 'utils/getExtName';
+import path from 'path';
 
 export default class UploadService extends Service {
-    async addPath(filepath: string, userid: number, desc: string) {
-        const { app } = this;
-        let htmlpath = '';
-        let createTime = dayjs().format('YYYY-MM-DD HH:mm');
-        const files = await fs.promises.readdir(filepath);
+    async addPath(filepath: string, userid: number, desc: string, htmlpath: string = '') {
+        const { app, service } = this;
+        const files = fs.readdirSync(filepath);
+        const createTime = dayjs().format('YYYY-MM-DD HH:mm');
         files.forEach((file) => {
-            const extName = getExtName(file);
-            if (extName !== '.html') return;
-            htmlpath = `${filepath}/${file}`;
-            app.mysql.insert('uploadfile', {
-                htmlpath,
-                filepath,
-                createTime,
-                userid,
-                desc,
-            });
+            const extName = path.extname(file);
+            const filePath = path.join(filepath, file);
+            if (extName == '.html') {
+                htmlpath = `${filepath}/${file}`;
+                app.mysql.insert('uploadfile', {
+                    htmlpath,
+                    filepath,
+                    createTime,
+                    userid,
+                    desc,
+                });
+            }
+
+            if (fs.statSync(filePath).isDirectory()) {
+                service.upload.upload.addPath(filePath, userid, desc);
+            }
         });
     }
 }
