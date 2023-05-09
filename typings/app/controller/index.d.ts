@@ -9,6 +9,7 @@ import ExportLoginLogin from '../../../app/controller/login/login';
 import ExportQuestionQuestion from '../../../app/controller/question/question';
 import ExportUploadUpload from '../../../app/controller/upload/upload';
 import ExportLoginTypesLoginType from '../../../app/controller/login/types/login-type';
+import ExportMainSystemSystem from '../../../app/controller/main/system/system';
 import ExportQuestionDataQuestionData from '../../../app/controller/question/data/question-data';
 import ExportQuestionTypesQuestionType from '../../../app/controller/question/types/question-type';
 import ExportUploadTypesUploadType from '../../../app/controller/upload/types/upload-type';
@@ -38,6 +39,11 @@ declare module 'egg' {
       upload: ExportUploadUpload;
       types: {
         uploadType: ExportUploadTypesUploadType;
+      }
+    }
+    main: {
+      system: {
+        system: ExportMainSystemSystem;
       }
     }
   }

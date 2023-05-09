@@ -15,4 +15,7 @@ export default (app: Application) => {
 
     // * 文件上传功能
     router.post('/upload', controller.upload.upload.index);
+
+    // * main/system
+    router.get('/api/system/tableData', controller.main.system.system.table);
 };

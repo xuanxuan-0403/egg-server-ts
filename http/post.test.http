@@ -1,0 +1,6 @@
+GET http://127.0.0.1:7001/api/system/tableData
+Content-Type: application/json
+
+{
+    "userId": 0
+}
