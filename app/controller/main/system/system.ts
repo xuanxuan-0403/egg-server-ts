@@ -7,12 +7,13 @@ export default class SystemController extends Controller {
         console.log(userid);
         const rows = await app.mysql.select('uploadfile', {
             where: { userid },
+            columns: ['id', 'userid', 'createTime', 'desc'],
         });
         ctx.body = {
             code: 0,
             status: 200,
             message: 'egg-ts! 7001/main/system table data',
-            data: [rows],
+            data: rows,
         };
     }
 }

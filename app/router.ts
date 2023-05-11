@@ -17,5 +17,5 @@ export default (app: Application) => {
     router.post('/upload', controller.upload.upload.index);
 
     // * main/system
-    router.get('/api/system/tableData', controller.main.system.system.table);
+    router.post('/api/system/tableData', controller.main.system.system.table);
 };
