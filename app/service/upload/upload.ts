@@ -4,7 +4,13 @@ import fs from 'fs';
 import path from 'path';
 
 export default class UploadService extends Service {
-    async addPath(filepath: string, userid: number, desc: string, htmlpath: string = '') {
+    async addPath(
+        filepath: string,
+        userid: number,
+        desc: string,
+        projectName: string,
+        htmlpath: string = '',
+    ) {
         const { app, service } = this;
         const files = fs.readdirSync(filepath);
         const createTime = dayjs().format('YYYY-MM-DD HH:mm');
@@ -19,11 +25,12 @@ export default class UploadService extends Service {
                     createTime,
                     userid,
                     desc,
+                    name: projectName,
                 });
             }
 
             if (fs.statSync(filePath).isDirectory()) {
-                service.upload.upload.addPath(filePath, userid, desc);
+                service.upload.upload.addPath(filePath, userid, desc, projectName);
             }
         });
     }
