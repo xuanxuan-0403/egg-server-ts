@@ -25,15 +25,12 @@ export default class UploadController extends Controller {
                     resolve(true);
                     console.log('success', name);
                     let filepath = '';
-                    let imgName = '';
                     if (path.extname(name) === '.zip') {
                         // * 解压
                         xrCompressing.uncompress(name, dist, resultPath);
                         // * 查询解压后文件夹路径
                         filepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
                     } else if (path.extname(name) === '.png') {
-                        1;
-                        imgName = name;
                     }
                     // * 查询解压后 .html 文件,把路径注入到数据库
                     setTimeout(() => {
