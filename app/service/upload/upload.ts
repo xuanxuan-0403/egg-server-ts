@@ -11,6 +11,7 @@ export default class UploadService extends Service {
         projectName: string,
         htmlpath: string = '',
     ) {
+        let flag = false;
         const { app, service } = this;
         const files = fs.readdirSync(filepath);
         const createTime = dayjs().format('YYYY-MM-DD HH:mm');
@@ -18,6 +19,7 @@ export default class UploadService extends Service {
             const extName = path.extname(file);
             const filePath = path.join(filepath, file);
             if (extName == '.html') {
+                flag = true;
                 htmlpath = `${filepath}/${file}`;
                 app.mysql.insert('uploadfile', {
                     htmlpath,
@@ -29,7 +31,7 @@ export default class UploadService extends Service {
                 });
             }
 
-            if (fs.statSync(filePath).isDirectory()) {
+            if (fs.statSync(filePath).isDirectory() && flag === true) {
                 service.upload.upload.addPath(filePath, userid, desc, projectName);
             }
         });

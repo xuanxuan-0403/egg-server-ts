@@ -6,7 +6,7 @@ export default class SystemController extends Controller {
         const userid = ctx.request.body.userId;
         const data = await app.mysql.select('uploadfile', {
             where: { userid },
-            columns: ['id', 'userid', 'createTime', 'desc', 'name'],
+            columns: ['id', 'userid', 'createTime', 'desc', 'name', 'htmlpath'],
         });
         ctx.body = {
             code: 0,
@@ -18,7 +18,7 @@ export default class SystemController extends Controller {
     async all() {
         const { ctx, app } = this;
         const data = await app.mysql.select('uploadfile', {
-            columns: ['id', 'userid', 'createTime', 'desc', 'name'],
+            columns: ['id', 'userid', 'createTime', 'desc', 'name', 'htmlpath'],
         });
 
         ctx.body = {

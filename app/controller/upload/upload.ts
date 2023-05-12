@@ -25,7 +25,11 @@ export default class UploadController extends Controller {
                     resolve(true);
                     console.log('success', name);
                     let filepath = '';
-                    if (path.extname(name) === '.zip') {
+                    if (
+                        path.extname(name) === '.zip' ||
+                        path.extname(name) === '.rar' ||
+                        path.extname(name) === '.7z'
+                    ) {
                         // * 解压
                         xrCompressing.uncompress(name, dist, resultPath);
                         // * 查询解压后文件夹路径
