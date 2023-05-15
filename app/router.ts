@@ -14,7 +14,8 @@ export default (app: Application) => {
     router.post('/api/login/addUser', controller.login.login.addUser);
 
     // * 文件上传功能
-    router.post('/upload', controller.upload.upload.index);
+    router.post('/upload', controller.upload.upload.uploadZip);
+    router.post('/uploadImage', app.controller.upload.upload.uploadImage);
 
     // * main/system
     router.post('/api/system/tableData', controller.main.system.system.table);

@@ -31,7 +31,7 @@ export default class UploadService extends Service {
                 });
             }
 
-            if (fs.statSync(filePath).isDirectory() && flag === true) {
+            if (fs.statSync(filePath).isDirectory() && flag !== true) {
                 service.upload.upload.addPath(filePath, userid, desc, projectName);
             }
         });
