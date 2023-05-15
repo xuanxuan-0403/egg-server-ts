@@ -8,46 +8,37 @@ import { alternatePath } from 'utils/alternatePath';
 export default class UploadController extends Controller {
     async uploadZip() {
         const { ctx, service } = this;
-        const userData = ctx.request.body;
+        const { userId, desc, projectName } = ctx.request.body;
         const file = ctx.request.files[0];
-        const name = file.filename;
         const uuid = uuidv4();
-        const filename = `${uuid}_${name}`;
-        const dist = `app/public/upload/${filename}`;
-        const resultPath = `app/public/webgl/${uuid}`;
+        const { filepath, filename } = file;
+        const uuidFilename = `${uuid}_${filename}`;
+        const extname = path.extname(filename);
+        const decompressPath = `app/public/webgl/${uuid}`;
+        const targetPath = path.join(this.config.baseDir, 'app/public/upload', uuidFilename);
 
-        const result = await new Promise((resolve, reject) => {
-            fs.copyFile(file.filepath, dist, (error) => {
-                if (error) {
-                    reject(error);
-                    console.log('error: ', error);
-                } else {
-                    resolve(true);
-                    console.log('success', name);
-                    let filepath = '';
-                    if (path.extname(name) === '.zip') {
-                        // * 解压
-                        xrCompressing.uncompress(name, dist, resultPath);
-                        // * 查询解压后文件夹路径
-                        // filepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
-                        filepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
-                    }
-                    // * 查询解压后 .html 文件,把路径注入到数据库
-                    setTimeout(() => {
-                        service.upload.upload.addPath(
-                            filepath,
-                            userData.userId,
-                            userData.desc,
-                            userData.projectName,
-                        );
-                    }, 1000);
-                }
-            });
-        });
+        fs.copyFileSync(filepath, targetPath);
+        fs.unlinkSync(filepath);
+
+        if (extname === '.zip' || extname === '.rar' || extname === '.7z') {
+            xrCompressing.uncompress(filename, `app/public/upload/${uuidFilename}`, decompressPath);
+            // const uuidFilepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
+            const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
+            setTimeout(() => {
+                service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
+            }, 1000);
+        } else {
+            ctx.body = {
+                code: 1,
+                message: '传入文件不为压缩包',
+            };
+            return;
+        }
+
         this.ctx.response.body = {
-            state: result,
-            filename: name,
-            extname: path.extname(name),
+            code: 0,
+            filename,
+            extname: path.extname(filename),
         };
     }
 
@@ -93,5 +84,10 @@ export default class UploadController extends Controller {
                 message: '未找到对应数据',
             };
         }
+        this.ctx.response.body = {
+            code: 0,
+            filename,
+            extname: path.extname(filename),
+        };
     }
 }
