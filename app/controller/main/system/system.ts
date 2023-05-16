@@ -18,7 +18,7 @@ export default class SystemController extends Controller {
     async all() {
         const { ctx, app } = this;
         const data = await app.mysql.select('uploadfile', {
-            columns: ['id', 'userid', 'createTime', 'desc', 'name', 'htmlpath'],
+            columns: ['id', 'userid', 'imgpath', 'createTime', 'desc', 'name', 'htmlpath'],
         });
 
         ctx.body = {
