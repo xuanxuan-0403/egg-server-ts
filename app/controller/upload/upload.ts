@@ -22,8 +22,8 @@ export default class UploadController extends Controller {
 
         if (extname === '.zip' || extname === '.rar' || extname === '.7z') {
             xrCompressing.uncompress(filename, `app/public/upload/${uuidFilename}`, decompressPath);
-            // const uuidFilepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
-            const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
+            const uuidFilepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
+            // const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
             setTimeout(() => {
                 service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
             }, 1000);
@@ -57,12 +57,12 @@ export default class UploadController extends Controller {
 
         // 查找 name 字段等于请求参数中的 name 的数据
         const uploadFile = await app.mysql.get('uploadfile', { name: projectName });
-        console.log(uploadFile);
+        fs.copyFileSync(targetPath, `${uploadFile.filepath}/${filename}`);
 
         if (uploadFile) {
             const result = await app.mysql.update('uploadfile', {
                 id: uploadFile.id,
-                imgpath: 'fdafdafda',
+                imgpath: `${uploadFile.filepath}/${filename}`,
             });
             if (result.affectedRows === 1) {
                 console.log('添加成功');
