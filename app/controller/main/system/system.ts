@@ -28,4 +28,22 @@ export default class SystemController extends Controller {
             data,
         };
     }
+    async delete() {
+        const { ctx, app } = this;
+        const { id } = ctx.request.body;
+        const result = await app.mysql.delete('uploadfile', { id });
+        if (result.affectedRows === 1) {
+            console.log('删除成功');
+            ctx.body = {
+                code: 0,
+                message: '删除成功',
+            };
+        } else {
+            console.log('删除失败');
+            ctx.body = {
+                code: 1,
+                message: '删除失败',
+            };
+        }
+    }
 }
