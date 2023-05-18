@@ -26,16 +26,17 @@ export default class UploadController extends Controller {
 
         writeStream.on('finish', () => {
             if (extname === '.zip' || extname === '.rar' || extname === '.7z') {
-                xrCompressing.uncompress(
-                    filename,
-                    `app/public/upload/${uuidFilename}`,
-                    decompressPath,
-                );
-                const uuidFilepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
-                // const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
-                setTimeout(() => {
-                    service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
-                }, 1000);
+                xrCompressing
+                    .uncompress(filename, `app/public/upload/${uuidFilename}`, decompressPath)
+                    .then(() => {
+                        console.log('解压完毕');
+                        const uuidFilepath = `/${alternatePath(__dirname, [
+                            'public',
+                            'webgl',
+                        ])}/${uuid}`;
+                        // const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
+                        service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
+                    });
             } else {
                 ctx.body = {
                     code: 1,
