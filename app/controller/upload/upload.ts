@@ -17,23 +17,42 @@ export default class UploadController extends Controller {
         const decompressPath = `app/public/webgl/${uuid}`;
         const targetPath = path.join(this.config.baseDir, 'app/public/upload', uuidFilename);
 
-        fs.copyFileSync(filepath, targetPath);
-        fs.unlinkSync(filepath);
+        // fs.copyFileSync(filepath, targetPath);
+        // fs.unlinkSync(filepath);
+        const stream = fs.createReadStream(filepath);
+        const writeStream = fs.createWriteStream(targetPath);
 
-        if (extname === '.zip' || extname === '.rar' || extname === '.7z') {
-            xrCompressing.uncompress(filename, `app/public/upload/${uuidFilename}`, decompressPath);
-            const uuidFilepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
-            // const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
-            setTimeout(() => {
-                service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
-            }, 1000);
-        } else {
+        stream.pipe(writeStream);
+
+        writeStream.on('finish', () => {
+            if (extname === '.zip' || extname === '.rar' || extname === '.7z') {
+                xrCompressing.uncompress(
+                    filename,
+                    `app/public/upload/${uuidFilename}`,
+                    decompressPath,
+                );
+                const uuidFilepath = `/${alternatePath(__dirname, ['public', 'webgl'])}/${uuid}`;
+                // const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
+                setTimeout(() => {
+                    service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
+                }, 1000);
+            } else {
+                ctx.body = {
+                    code: 1,
+                    message: '传入文件不为压缩包',
+                };
+                return;
+            }
+        });
+
+        writeStream.on('error', (err) => {
+            // 处理写入流错误
+            console.error(err);
             ctx.body = {
                 code: 1,
-                message: '传入文件不为压缩包',
+                message: '文件上传失败',
             };
-            return;
-        }
+        });
 
         this.ctx.response.body = {
             code: 0,
