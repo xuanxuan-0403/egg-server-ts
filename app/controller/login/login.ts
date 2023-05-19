@@ -1,5 +1,6 @@
 import { Controller } from 'egg';
-import { IUserInfo } from './types/login-type';
+import type { IUserInfo } from './types/login-type';
+import { userRouter, adminRouter } from './types/router-data';
 
 export default class LoginController extends Controller {
     async getUser() {
@@ -20,11 +21,22 @@ export default class LoginController extends Controller {
                 const userid = sqlUser[i].id;
                 const token = app.jwt.sign({ name: sqlUser[i].username }, app.config.jwt.secret);
 
+                if (sqlUser[i].role === '超级管理员') {
+                    ctx.body = {
+                        status: 200,
+                        message: '超级管理员登录成功',
+                        token,
+                        userid,
+                        router: adminRouter,
+                    };
+                }
+
                 ctx.body = {
                     status: 200,
                     message: '登录成功',
                     token,
                     userid,
+                    router: userRouter,
                 };
             }
             if (!resultUser) {
@@ -50,6 +62,7 @@ export default class LoginController extends Controller {
         const result = await this.app.mysql.insert('user', {
             username: user.username,
             password: user.password,
+            role: '普通用户',
         });
 
         if (result.affectedRows === 1) {

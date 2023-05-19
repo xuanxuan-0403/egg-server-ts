@@ -17,8 +17,6 @@ export default class UploadController extends Controller {
         const decompressPath = `app/public/webgl/${uuid}`;
         const targetPath = path.join(this.config.baseDir, 'app/public/upload', uuidFilename);
 
-        // fs.copyFileSync(filepath, targetPath);
-        // fs.unlinkSync(filepath);
         const stream = fs.createReadStream(filepath);
         const writeStream = fs.createWriteStream(targetPath);
 
