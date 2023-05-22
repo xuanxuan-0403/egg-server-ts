@@ -29,6 +29,7 @@ export default class LoginController extends Controller {
                         userid,
                         router: adminRouter,
                     };
+                    return;
                 }
 
                 ctx.body = {
