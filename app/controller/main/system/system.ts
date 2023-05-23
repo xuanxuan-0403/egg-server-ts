@@ -6,7 +6,16 @@ export default class SystemController extends Controller {
         const userid = ctx.request.body.userId;
         const data = await app.mysql.select('uploadfile', {
             where: { userid },
-            columns: ['id', 'userid', 'createTime', 'desc', 'name', 'htmlpath'],
+            columns: [
+                'id',
+                'userid',
+                'imgpath',
+                'createTime',
+                'desc',
+                'name',
+                'htmlpath',
+                'isAudit',
+            ],
         });
         ctx.body = {
             code: 0,
@@ -18,14 +27,28 @@ export default class SystemController extends Controller {
     async all() {
         const { ctx, app } = this;
         const data = await app.mysql.select('uploadfile', {
-            columns: ['id', 'userid', 'imgpath', 'createTime', 'desc', 'name', 'htmlpath'],
+            columns: [
+                'id',
+                'userid',
+                'imgpath',
+                'createTime',
+                'desc',
+                'name',
+                'htmlpath',
+                'isAudit',
+            ],
+        });
+        const auditData = data.map((item) => {
+            if (item.isAudit === 1) {
+                return item;
+            }
         });
 
         ctx.body = {
             code: 0,
             status: 200,
             message: 'egg-ts! 7001/main/system table data',
-            data,
+            auditData,
         };
     }
     async delete() {
