@@ -69,4 +69,38 @@ export default class SystemController extends Controller {
             };
         }
     }
+    async audit() {
+        const { ctx, app } = this;
+        const { id, userid } = ctx.request.body;
+        const listData = await app.mysql.get('uploadfile', {
+            id,
+            userid,
+        });
+
+        if (listData) {
+            const result = await app.mysql.update('uploadfile', {
+                id: listData.id,
+                isAudit: 1,
+            });
+            if (result.affectedRows === 1) {
+                console.log('修改审核通过');
+                ctx.body = {
+                    code: 0,
+                    message: '修改审核通过',
+                };
+            } else {
+                console.log('修改审核失败');
+                ctx.body = {
+                    code: 1,
+                    message: '修改审核失败',
+                };
+            }
+        } else {
+            console.log('未找到对应数据');
+            ctx.body = {
+                code: 2,
+                message: '未找到对应数据',
+            };
+        }
+    }
 }
