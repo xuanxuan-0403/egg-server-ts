@@ -1,8 +1,8 @@
 
-POST http://127.0.0.1:7001/api/system/audit
+GET http://10.87.1.106:7001/api/system/all
 Content-Type: application/json
 
-{
-    "id": 177,
-    "userid": 25
-}
+# {
+#     "id": 177,
+#     "userid": 25
+# }

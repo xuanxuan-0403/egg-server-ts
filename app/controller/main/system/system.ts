@@ -26,6 +26,7 @@ export default class SystemController extends Controller {
     }
     async all() {
         const { ctx, app } = this;
+        const { audit } = ctx.request.body;
         const data = await app.mysql.select('uploadfile', {
             columns: [
                 'id',
@@ -38,18 +39,30 @@ export default class SystemController extends Controller {
                 'isAudit',
             ],
         });
-        const auditData = data.map((item) => {
-            if (item.isAudit === 1) {
-                return item;
-            }
-        });
-
-        ctx.body = {
-            code: 0,
-            status: 200,
-            message: 'egg-ts! 7001/main/system table data',
-            auditData,
-        };
+        /*
+            audit = 1 返回的数据为全部数据
+            audit = 0 返回的为排除未审核的数据
+        */
+        if (audit === 1) {
+            const auditData = data.map((item) => {
+                if (item.isAudit === 1) {
+                    return item;
+                }
+            });
+            ctx.body = {
+                code: 0,
+                status: 200,
+                message: 'egg-ts! 7001/main/system table data',
+                data: auditData,
+            };
+        } else if (audit === 0) {
+            ctx.body = {
+                code: 0,
+                status: 200,
+                message: 'egg-ts! 7001/main/system table data',
+                data,
+            };
+        }
     }
     async delete() {
         const { ctx, app } = this;

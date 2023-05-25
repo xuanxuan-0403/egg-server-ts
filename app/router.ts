@@ -19,7 +19,7 @@ export default (app: Application) => {
 
     // * main/system
     router.post('/api/system/tableData', controller.main.system.system.table);
-    router.get('/api/system/all', controller.main.system.system.all);
+    router.post('/api/system/all', controller.main.system.system.all);
     router.post('/api/system/delete', controller.main.system.system.delete);
     router.post('/api/system/audit', controller.main.system.system.audit);
 };
