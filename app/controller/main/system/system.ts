@@ -1,4 +1,5 @@
 import { Controller } from 'egg';
+import { deleteFolderRecursive } from 'utils/deleteFolderRecursive';
 
 export default class SystemController extends Controller {
     async table() {
@@ -40,8 +41,8 @@ export default class SystemController extends Controller {
             ],
         });
         /*
-            audit = 1 返回的数据为全部数据
-            audit = 0 返回的为排除未审核的数据
+            audit = 1 返回的为排除未审核的数据
+            audit = 0 返回的数据为全部数据
         */
         if (audit === 1) {
             const auditData = data.map((item) => {
@@ -67,6 +68,8 @@ export default class SystemController extends Controller {
     async delete() {
         const { ctx, app } = this;
         const { id } = ctx.request.body;
+        const data = await app.mysql.get('uploadfile', { id });
+        deleteFolderRecursive(data.filepath);
         const result = await app.mysql.delete('uploadfile', { id });
         if (result.affectedRows === 1) {
             console.log('删除成功');
