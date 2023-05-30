@@ -35,10 +35,12 @@
         "egg-mysql": "^4.0.0",
         "egg-scripts": "^2.17.0",
         "egg-tracer": "^2.0.0",
+        "lodash": "^4.17.21",
         "uuid": "^9.0.0"
     },
     "devDependencies": {
         "@eggjs/tsconfig": "1",
+        "@types/lodash": "^4.14.195",
         "@types/mocha": "10",
         "@types/node": "18",
         "commitizen": "^4.3.0",

@@ -1,5 +1,5 @@
 
-GET http://10.87.1.106:7001/api/system/all
+GET http://127.0.0.1:7001/api/allUser
 Content-Type: application/json
 
 # {
