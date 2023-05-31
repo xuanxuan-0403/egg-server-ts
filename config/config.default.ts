@@ -25,7 +25,7 @@ export default (appInfo: EggAppInfo) => {
             port: '3306',
             user: 'root',
             password: '316516',
-            database: 'jiawu',
+            database: 'webgl',
         },
     };
     // * 配置白名单

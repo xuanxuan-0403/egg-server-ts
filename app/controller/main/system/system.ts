@@ -44,9 +44,9 @@ export default class SystemController extends Controller {
             audit = 1 返回的为排除未审核的数据
             audit = 0 返回的数据为全部数据
         */
-        if (audit === 1) {
+        if (audit == 1) {
             const auditData = data.map((item) => {
-                if (item.isAudit === 1) {
+                if (item.isAudit == 1) {
                     return item;
                 }
             });
@@ -56,7 +56,7 @@ export default class SystemController extends Controller {
                 message: 'egg-ts! 7001/main/system table data',
                 data: auditData,
             };
-        } else if (audit === 0) {
+        } else if (audit == 0) {
             ctx.body = {
                 code: 0,
                 status: 200,
