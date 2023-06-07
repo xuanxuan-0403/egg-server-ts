@@ -1,11 +1,12 @@
 import { Controller } from 'egg';
 import { deleteFolderRecursive } from 'utils/deleteFolderRecursive';
+import {uploadTableName} from 'config/config.mysql'
 
 export default class SystemController extends Controller {
     async table() {
         const { ctx, app } = this;
         const userid = ctx.request.body.userId;
-        const data = await app.mysql.select('uploadfile', {
+        const data = await app.mysql.select(uploadTableName, {
             where: { userid },
             columns: [
                 'id',
@@ -28,7 +29,7 @@ export default class SystemController extends Controller {
     async all() {
         const { ctx, app } = this;
         const { audit } = ctx.request.body;
-        const data = await app.mysql.select('uploadfile', {
+        const data = await app.mysql.select(uploadTableName, {
             columns: [
                 'id',
                 'userid',

@@ -21,7 +21,8 @@ export default (appInfo: EggAppInfo) => {
         app: true, // 是否挂载到 app/ 下面
         agent: false, // 是否挂载到代理
         client: {
-            host: '10.87.1.106',
+            // host: '10.87.1.106',
+            host: '127.0.0.1',
             port: '3306',
             user: 'root',
             password: '316516',
