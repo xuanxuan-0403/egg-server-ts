@@ -1,7 +1,9 @@
-POST http://127.0.0.1:7001/api/user/delete
+POST http://127.0.0.1:7001/api/user/update
 Content-Type: application/json
 
 {
-    "id": "3"
+    "id": "2",
+    "username": "xyx",
+    "password": "123456"
 }
 
