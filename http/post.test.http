@@ -1,7 +1,7 @@
-POST http://127.0.0.1:7001/api/system/delete
+POST http://127.0.0.1:7001/api/user/delete
 Content-Type: application/json
 
 {
-    "id": "192"
+    "id": "3"
 }
 

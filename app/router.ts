@@ -10,7 +10,9 @@ export default (app: Application) => {
     router.get('/dangjian/exhibits', controller.dangjian.dangjian.exhibits); // 党建展厅
 
     // * user
-    router.get('/api/allUser', controller.user.user.getAllUser);
+    router.get('/api/user/allUser', controller.user.user.getAllUser);
+    router.post('/api/user/delete',controller.user.user.deleteUser);
+    router.post('/api/user/update',controller.user.user.updateUser);
 
     // * 登录
     router.post('/api/login/getUser', controller.login.login.getUser);
