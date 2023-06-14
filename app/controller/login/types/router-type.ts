@@ -6,4 +6,5 @@ export interface IRouterType {
     icon: string;
     sort: number;
     childrem?: IRouterType[];
+    svg: string;
 }
