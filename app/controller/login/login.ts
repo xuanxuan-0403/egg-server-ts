@@ -1,6 +1,6 @@
 import { Controller } from 'egg';
 import type { IUserInfo } from './types/login-type';
-import { userRouter, adminRouter } from './types/router-data';
+import { adminRouter, userRouter } from './types/router-data';
 
 export default class LoginController extends Controller {
     async getUser() {
@@ -27,7 +27,9 @@ export default class LoginController extends Controller {
                         message: '超级管理员登录成功',
                         token,
                         userid,
+                        username: 'admin',
                         router: adminRouter,
+                        role: '超级管理员',
                     };
                     return;
                 }
@@ -38,6 +40,8 @@ export default class LoginController extends Controller {
                     token,
                     userid,
                     router: userRouter,
+                    username: user.username,
+                    role: '普通用户',
                 };
             }
             if (!resultUser) {
@@ -48,6 +52,7 @@ export default class LoginController extends Controller {
             }
         }
     }
+
     async addUser() {
         // 注册
         const { ctx } = this;
