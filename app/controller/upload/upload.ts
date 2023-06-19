@@ -8,7 +8,12 @@ import { alternatePath } from 'utils/alternatePath';
 export default class UploadController extends Controller {
     async uploadZip() {
         const { ctx, service } = this;
-        const { userId, desc, projectName } = ctx.request.body;
+        const {
+            userId,
+            desc,
+            projectName,
+            checkboxData,
+        }: { userId: number, desc: string, projectName: string, checkboxData: string[] } = ctx.request.body;
         const file = ctx.request.files[0];
         const uuid = uuidv4();
         const { filepath, filename } = file;
@@ -33,7 +38,7 @@ export default class UploadController extends Controller {
                             'webgl',
                         ])}/${uuid}`;
                         // const uuidFilepath = `${alternatePath(__dirname, ['public', 'webgl'])}\\${uuid}`;
-                        service.upload.upload.addPath(uuidFilepath, userId, desc, projectName);
+                        service.upload.upload.addPath(uuidFilepath, userId, desc, projectName, checkboxData);
                     });
             } else {
                 ctx.body = {

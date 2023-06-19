@@ -9,12 +9,14 @@ export default class UploadService extends Service {
         userid: number,
         desc: string,
         projectName: string,
+        checkboxData: string[],
         htmlpath: string = '',
     ) {
         let flag = false;
         const { app, service } = this;
         const files = fs.readdirSync(filepath);
-        const createTime = dayjs().format('YYYY-MM-DD HH:mm');
+        const createTime = dayjs()
+            .format('YYYY-MM-DD HH:mm');
         files.forEach((file) => {
             const extName = path.extname(file);
             const filePath = path.join(filepath, file);
@@ -28,11 +30,13 @@ export default class UploadService extends Service {
                     userid,
                     desc,
                     name: projectName,
+                    tags: checkboxData,
                 });
             }
 
-            if (fs.statSync(filePath).isDirectory() && flag !== true) {
-                service.upload.upload.addPath(filePath, userid, desc, projectName);
+            if (fs.statSync(filePath)
+                .isDirectory() && flag !== true) {
+                service.upload.upload.addPath(filePath, userid, desc, projectName, checkboxData);
             }
         });
     }
