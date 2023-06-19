@@ -7,6 +7,7 @@ import ExportHome from '../../../app/controller/home';
 import ExportDangjianDangjian from '../../../app/controller/dangjian/dangjian';
 import ExportLoginLogin from '../../../app/controller/login/login';
 import ExportQuestionQuestion from '../../../app/controller/question/question';
+import ExportTagTag from '../../../app/controller/tag/tag';
 import ExportUploadUpload from '../../../app/controller/upload/upload';
 import ExportUserUser from '../../../app/controller/user/user';
 import ExportLoginTypesLoginType from '../../../app/controller/login/types/login-type';
@@ -40,6 +41,9 @@ declare module 'egg' {
       types: {
         questionType: ExportQuestionTypesQuestionType;
       }
+    }
+    tag: {
+      tag: ExportTagTag;
     }
     upload: {
       upload: ExportUploadUpload;

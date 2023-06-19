@@ -1,9 +1,8 @@
-POST http://127.0.0.1:7001/api/user/update
+POST http://127.0.0.1:7001/api/tag/update
 Content-Type: application/json
 
 {
-    "id": "2",
-    "username": "sbga",
-    "password": "123456"
+    "id": 10,
+    "tag": "涩情内容"
 }
 

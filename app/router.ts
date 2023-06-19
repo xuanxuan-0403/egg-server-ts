@@ -11,8 +11,8 @@ export default (app: Application) => {
 
     // * user
     router.get('/api/user/allUser', controller.user.user.getAllUser);
-    router.post('/api/user/delete',controller.user.user.deleteUser);
-    router.post('/api/user/update',controller.user.user.updateUser);
+    router.post('/api/user/delete', controller.user.user.deleteUser);
+    router.post('/api/user/update', controller.user.user.updateUser);
 
     // * 登录
     router.post('/api/login/getUser', controller.login.login.getUser);
@@ -27,4 +27,10 @@ export default (app: Application) => {
     router.post('/api/system/all', controller.main.system.system.all);
     router.post('/api/system/delete', controller.main.system.system.delete);
     router.post('/api/system/audit', controller.main.system.system.audit);
+
+    // * tag
+    router.get('/api/tag/get', controller.tag.tag.get);
+    router.post('/api/tag/add', controller.tag.tag.add);
+    router.post('/api/tag/del', controller.tag.tag.del);
+    router.post('/api/tag/update', controller.tag.tag.update);
 };
