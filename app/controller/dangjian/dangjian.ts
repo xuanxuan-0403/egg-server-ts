@@ -1,18 +1,15 @@
 // app/controller/dangjian.ts
 import { Controller } from 'egg';
+import data from './data/exhibits.json';
 
 export default class DangJianController extends Controller {
     public async exhibits() {
-        const { ctx, app } = this;
-        const videoInfo = await app.mysql.select('dangjian');
+        const { ctx } = this;
         ctx.body = {
             code: 0,
             status: 200,
-            message: 'hi egg! 党建展厅弹窗接口',
-            data: {
-                museumName: '党建展馆',
-                videoInfo,
-            },
+            message: 'hi egg! 现在是航海接口',
+            data,
         };
     }
 }
